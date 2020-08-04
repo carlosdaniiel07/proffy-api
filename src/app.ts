@@ -1,14 +1,12 @@
 import express from 'express'
+import appRoutes from './routes'
 
 const app = express()
+const router = express.Router()
 
-app.get('/', (req, res, next) => {
-  return res.json({
-    status: 200,
-    success: true,
-    message: 'Hello TypeScript',
-    timestamp: new Date().getTime()
-  })
-})
+appRoutes.forEach(route => route(router))
+
+app.use(router)
+app.use(express.json())
 
 export default app

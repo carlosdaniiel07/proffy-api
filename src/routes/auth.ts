@@ -1,16 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import { Router } from 'express'
 
-export default (route: Router) => {
-  route.post('/auth', (req, res) => {
-    return res.json({
-      success: true
-    })
-  })
+import AuthController from './../controllers/auth'
 
-  route.post('/sign-up', (req, res) => {
-    return res.json({
-      success: true
-    })
-  })
+export default (route: Router) => {
+  route.post('/auth', AuthController.authUser)
+  route.post('/sign-up', AuthController.saveUser)
 }

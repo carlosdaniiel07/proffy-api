@@ -6,14 +6,14 @@ const authUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
   const accessToken = await authService.auth(email, password)
 
-  return res.json({ accessToken })
+  return [200, { accessToken }]
 }
 
 const saveUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
-  const user = await authService.createUser(email, password)
+  const { id, role } = await authService.createUser(email, password)
 
-  return res.json(user)
+  return [201, { id, email, role }]
 }
 
 export default {

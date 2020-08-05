@@ -18,4 +18,6 @@ export default async () => {
       Auth
     ]
   })
+
+  console.log('[!] Database connected!')
 }

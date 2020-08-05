@@ -4,18 +4,20 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import JWT_CONFIG from './../config/jwt'
-import { Auth } from '../models/Auth'
+
+import { Auth } from './../models/Auth'
+import { ApiError } from './../models/ApiError'
 
 const auth = async (email: string, password: string): Promise<string> => {
   const authRepository = getRepository(Auth)
   const user = await authRepository.findOne({ where: { email } })
 
   if (!user) {
-    throw Error('Nenhum usuário cadastrado com este e-mail')
+    throw new ApiError(404, 'Nenhum usuário cadastrado com este e-mail')
   }
 
   if (!bcrypt.compareSync(password, user.password)) {
-    throw Error('E-mail ou senha incorretos')
+    throw new ApiError(400, 'E-mail ou senha incorretos')
   }
 
   // generate JWT token
@@ -40,7 +42,23 @@ const createUser = async (email: string, password: string): Promise<Auth> => {
   })
 }
 
+const getTokenClaims = (authorizationToken: string): any => {
+  const token = authorizationToken.length >= 7 && authorizationToken.substring(7, authorizationToken.length)
+
+  if (!token) {
+    return null
+  }
+
+  try {
+    jwt.verify(token, JWT_CONFIG.JWT_SECRET)
+    return jwt.decode(token)
+  } catch (err) {
+    return null
+  }
+}
+
 export default {
   auth,
-  createUser
+  createUser,
+  getTokenClaims
 }

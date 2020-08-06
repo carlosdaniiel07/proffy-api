@@ -28,7 +28,8 @@ export class Auth {
 
   @Column({
     nullable: true,
-    default: null
+    default: null,
+    name: 'last_login'
   })
   lastLogin!: Date
 

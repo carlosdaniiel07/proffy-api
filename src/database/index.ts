@@ -3,6 +3,7 @@ import { createConnection } from 'typeorm'
 
 // entities
 import { Auth } from './../models/Auth'
+import { Subject } from './../models/Subject'
 
 export default async () => {
   await createConnection({
@@ -15,7 +16,8 @@ export default async () => {
     database: 'proffy_db',
     synchronize: true,
     entities: [
-      Auth
+      Auth,
+      Subject
     ]
   })
 

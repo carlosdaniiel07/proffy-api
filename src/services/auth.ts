@@ -20,6 +20,8 @@ const auth = async (email: string, password: string): Promise<string> => {
     throw new ApiError(400, 'E-mail ou senha incorretos')
   }
 
+  await authRepository.update(user, { lastLogin: new Date() })
+
   // generate JWT token
   const { id, role } = user
   const token = jwt.sign({ id, email, role }, JWT_CONFIG.JWT_SECRET, { expiresIn: JWT_CONFIG.JWT_DURATION })

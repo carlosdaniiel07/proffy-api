@@ -10,6 +10,6 @@ export default () => {
       next(err)
     }
 
-    return res.status(statusCode).json({ message })
+    return res.status(statusCode || 500).json({ message })
   }
 }

@@ -8,6 +8,8 @@ import JWT_CONFIG from './../config/jwt'
 import { Auth } from './../models/Auth'
 import { ApiError } from './../models/ApiError'
 
+import { uuid } from './../utils'
+
 const auth = async (email: string, password: string): Promise<string> => {
   const authRepository = getRepository(Auth)
   const user = await authRepository.findOne({ where: { email } })
@@ -38,6 +40,7 @@ const createUser = async (email: string, password: string): Promise<Auth> => {
   }
 
   return authRepository.save({
+    id: uuid(),
     email: email,
     password: bcrypt.hashSync(password, 10),
     role: 'ROLE_ADMIN'

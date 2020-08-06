@@ -1,10 +1,8 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm'
-import { uuid } from './../utils'
 
 @Entity()
 export class Auth {
   @PrimaryColumn({
-    default: uuid(),
     length: 36
   })
   id!: string

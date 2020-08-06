@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm'
+import { Entity, Column, PrimaryColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
 import { Subject } from './Subject'
+import { Auth } from './Auth'
 
 @Entity()
 export class Student {
@@ -43,6 +44,13 @@ export class Student {
     length: 2
   })
   state!: string
+
+  @OneToOne(type => Auth, {
+    nullable: false,
+    eager: false
+  })
+  @JoinColumn()
+  user!: Auth
 
   @ManyToOne(type => Subject, subject => subject.students, {
     nullable: false,

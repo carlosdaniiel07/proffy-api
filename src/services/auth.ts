@@ -34,7 +34,7 @@ const createUser = async (email: string, password: string): Promise<Auth> => {
   const emailExists = (await authRepository.count({ where: { email } })) > 0
 
   if (emailExists) {
-    throw Error('Já existe um usuário cadastrado com este e-mail')
+    throw new ApiError(400, 'Já existe um usuário cadastrado com este e-mail')
   }
 
   return authRepository.save({

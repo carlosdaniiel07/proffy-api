@@ -17,6 +17,7 @@ export class Student {
 
   @Column({
     nullable: false,
+    type: 'date',
     name: 'born_date'
   })
   bornDate!: Date

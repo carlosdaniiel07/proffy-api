@@ -3,8 +3,6 @@ import { getRepository } from 'typeorm'
 import { Subject } from './../models/Subject'
 import { ApiError } from '../models/ApiError'
 
-import { uuid } from './../utils'
-
 const getAll = async (): Promise<Subject[]> => {
   const subjectRepository = getRepository(Subject)
   return await subjectRepository.find({ active: true })
@@ -35,10 +33,7 @@ const createSubject = async (name: string): Promise<Subject> => {
     throw new ApiError(400, `Já existe uma matéria com o nome ${name}`)
   }
 
-  return await getRepository(Subject).save({
-    id: uuid(),
-    name
-  })
+  return await getRepository(Subject).save({ name })
 }
 
 const deleteById = async (id: string): Promise<Subject> => {

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, ManyToOne, OneToOne, JoinColumn, Generated } from 'typeorm'
 import { Subject } from './Subject'
 import { Auth } from './Auth'
 
@@ -7,6 +7,7 @@ export class Student {
   @PrimaryColumn({
     length: 36
   })
+  @Generated('uuid')
   id!: string
 
   @Column({

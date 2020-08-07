@@ -7,8 +7,6 @@ import subjetService from './../services/subject'
 import { Student } from './../models/Student'
 import { CreateStudentDTO } from '../models/dtos/CreateStudentDTO'
 
-import { uuid } from './../utils'
-
 export const getAll = async (): Promise<Student[]> => {
   return getRepository(Student).find()
 }
@@ -21,7 +19,6 @@ export const createStudent = async (objectDTO: CreateStudentDTO): Promise<Studen
   const user = await authService.createUser(email, password)
 
   return await getRepository(Student).save({
-    id: uuid(),
     name,
     bornDate,
     city,

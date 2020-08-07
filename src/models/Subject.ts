@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm'
+import { Entity, Column, PrimaryColumn, OneToMany, Generated } from 'typeorm'
 import { Student } from './Student'
 
 @Entity()
@@ -6,6 +6,7 @@ export class Subject {
   @PrimaryColumn({
     length: 36
   })
+  @Generated('uuid')
   id!: string
 
   @Column({

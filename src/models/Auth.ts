@@ -1,10 +1,11 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, Generated } from 'typeorm'
 
 @Entity()
 export class Auth {
   @PrimaryColumn({
     length: 36
   })
+  @Generated('uuid')
   id!: string
 
   @Column({

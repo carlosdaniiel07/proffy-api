@@ -5,6 +5,8 @@ import { createConnection } from 'typeorm'
 import { Auth } from './../models/Auth'
 import { Subject } from './../models/Subject'
 import { Student } from './../models/Student'
+import { Availability } from './../models/Availability'
+import { Teacher } from './../models/Teacher'
 
 export default async () => {
   await createConnection({
@@ -19,7 +21,9 @@ export default async () => {
     entities: [
       Auth,
       Subject,
-      Student
+      Student,
+      Availability,
+      Teacher
     ]
   })
 

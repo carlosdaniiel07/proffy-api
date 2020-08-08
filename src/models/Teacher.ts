@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column, Generated, OneToMany } from 'typeorm'
+import { Entity, PrimaryColumn, Column, Generated, OneToMany, OneToOne, JoinColumn } from 'typeorm'
 import { Availability } from './Availability'
+import { Auth } from './Auth'
 
 @Entity()
 export class Teacher {
@@ -44,4 +45,11 @@ export class Teacher {
     cascade: ['insert']
   })
   availability!: Availability[]
+
+  @OneToOne(type => Auth, {
+    nullable: false,
+    eager: false
+  })
+  @JoinColumn()
+  user!: Auth
 }

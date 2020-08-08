@@ -19,6 +19,19 @@ const getById = async (id: string): Promise<Subject> => {
   return subject
 }
 
+const getByIds = async (ids: string[]): Promise<Subject[]> => {
+  const subjects = await getRepository(Subject).findByIds(ids)
+  const subjectsId = subjects.map(subject => subject.id)
+
+  ids.forEach(id => {
+    if (!subjectsId.includes(id)) {
+      throw new ApiError(404, 'Matéria não encontrada')
+    }
+  })
+
+  return subjects
+}
+
 const countByName = async (name: string): Promise<number> => {
   const subjectRepository = getRepository(Subject)
   const count = await subjectRepository.count({ where: { name, active: true } })
@@ -49,6 +62,7 @@ const deleteById = async (id: string): Promise<Subject> => {
 export default {
   getAll,
   getById,
+  getByIds,
   countByName,
   createSubject,
   deleteById

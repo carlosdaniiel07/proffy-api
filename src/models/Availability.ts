@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, OneToOne, Generated, ManyToOne } from 'typeorm'
+import { Entity, PrimaryColumn, Column, Generated, ManyToOne } from 'typeorm'
 
 import { Subject } from './Subject'
 import { Teacher } from './Teacher'
@@ -9,45 +9,46 @@ export class Availability {
     length: 36
   })
   @Generated('uuid')
-  id!: string
+  id?: string
 
-  @OneToOne(type => Subject, {
+  @ManyToOne(type => Subject, {
     nullable: false,
     eager: false
   })
-  subject!: Subject
+  subject?: Subject
 
   @Column({
     nullable: false,
     length: 20,
     name: 'week_day'
   })
-  weekDay!: string
+  weekDay?: string
 
   @Column({
     nullable: false,
     length: 5,
     name: 'start_at'
   })
-  startAt!: string
+  startAt?: string
 
   @Column({
     nullable: false,
     length: 5,
     name: 'finish_at'
   })
-  finishAt!: string
+  finishAt?: string
 
   @Column({
     nullable: false,
     type: 'decimal',
+    precision: 10,
     scale: 2
   })
-  price!: number
+  price?: number
 
   @ManyToOne(type => Teacher, teacher => teacher.availability, {
     nullable: false,
     eager: false
   })
-  teacher!: Teacher
+  teacher?: Teacher
 }

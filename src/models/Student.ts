@@ -51,12 +51,13 @@ export class Student {
     nullable: false,
     eager: false
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'id_user' })
   user!: Auth
 
   @ManyToOne(type => Subject, subject => subject.students, {
     nullable: false,
     eager: true
   })
+  @JoinColumn({ name: 'id_subject' })
   subject!: Subject
 }

@@ -50,6 +50,6 @@ export class Teacher {
     nullable: false,
     eager: false
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'id_user' })
   user!: Auth
 }

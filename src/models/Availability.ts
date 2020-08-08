@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, Generated, ManyToOne } from 'typeorm'
+import { Entity, PrimaryColumn, Column, Generated, ManyToOne, JoinColumn } from 'typeorm'
 
 import { Subject } from './Subject'
 import { Teacher } from './Teacher'
@@ -15,6 +15,7 @@ export class Availability {
     nullable: false,
     eager: false
   })
+  @JoinColumn({ name: 'id_subject' })
   subject?: Subject
 
   @Column({
@@ -50,5 +51,6 @@ export class Availability {
     nullable: false,
     eager: false
   })
+  @JoinColumn({ name: 'id_teacher' })
   teacher?: Teacher
 }

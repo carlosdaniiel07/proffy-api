@@ -2,9 +2,9 @@
 import { Entity, Column, PrimaryColumn, Generated } from 'typeorm'
 
 export enum Role {
-  ADMIN = 'ADMIN',
-  TEACHER = 'TEACHER',
-  STUDENT = 'STUDENT'
+  ADMIN = 'ROLE_ADMIN',
+  TEACHER = 'ROLE_TEACHER',
+  STUDENT = 'ROLE_STUDENT'
 }
 
 @Entity()

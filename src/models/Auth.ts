@@ -1,4 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { Entity, Column, PrimaryColumn, Generated } from 'typeorm'
+
+export enum Role {
+  ADMIN = 'ADMIN',
+  TEACHER = 'TEACHER',
+  STUDENT = 'STUDENT'
+}
 
 @Entity()
 export class Auth {
@@ -6,37 +13,37 @@ export class Auth {
     length: 36
   })
   @Generated('uuid')
-  id!: string
+  id?: string
 
   @Column({
     nullable: false,
     length: 100,
     unique: true
   })
-  email!: string
+  email?: string
 
   @Column({
     nullable: false,
     length: 255
   })
-  password!: string
+  password?: string
 
   @Column({
-    nullable: false,
-    length: 30
+    type: 'enum',
+    enum: Role
   })
-  role!: string
+  role?: Role
 
   @Column({
     nullable: true,
     default: null,
     name: 'last_login'
   })
-  lastLogin!: Date
+  lastLogin?: Date
 
   @Column({
     nullable: false,
     default: true
   })
-  active!: boolean
+  active?: boolean
 }

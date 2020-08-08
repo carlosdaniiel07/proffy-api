@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { getRepository } from 'typeorm'
 
 import bcrypt from 'bcrypt'
@@ -5,7 +6,7 @@ import jwt from 'jsonwebtoken'
 
 import JWT_CONFIG from './../config/jwt'
 
-import { Auth } from './../models/Auth'
+import { Auth, Role } from './../models/Auth'
 import { ApiError } from './../models/ApiError'
 
 const auth = async (email: string, password: string): Promise<string> => {
@@ -16,7 +17,7 @@ const auth = async (email: string, password: string): Promise<string> => {
     throw new ApiError(404, 'Nenhum usuário cadastrado com este e-mail')
   }
 
-  if (!bcrypt.compareSync(password, user.password)) {
+  if (!bcrypt.compareSync(password, user.password!)) {
     throw new ApiError(400, 'E-mail ou senha incorretos')
   }
 
@@ -29,7 +30,7 @@ const auth = async (email: string, password: string): Promise<string> => {
   return Promise.resolve(token)
 }
 
-const createUser = async (email: string, password: string): Promise<Auth> => {
+const createUser = async (email: string, password: string, role: Role): Promise<Auth> => {
   const authRepository = getRepository(Auth)
   const emailExists = (await authRepository.count({ where: { email } })) > 0
 
@@ -40,7 +41,7 @@ const createUser = async (email: string, password: string): Promise<Auth> => {
   return authRepository.save({
     email: email,
     password: bcrypt.hashSync(password, 10),
-    role: 'ROLE_ADMIN'
+    role: role
   })
 }
 

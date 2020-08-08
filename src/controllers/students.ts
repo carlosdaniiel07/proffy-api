@@ -10,7 +10,7 @@ const index = async (req: Request, res: Response) => {
   return [200, students]
 }
 
-const me = async (req: any, res: Response) => {
+const me = async (req: Request, res: Response) => {
   const { id } = req.user
   const student = await studentService.getByUser(id)
 

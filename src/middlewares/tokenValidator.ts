@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express'
 
 import authService from './../services/auth'
 
 import { Role } from './../models/Auth'
 
 export default (roles: Role[]) => {
-  return (req: any, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     roles.push(Role.ADMIN)
 
     const authorizationToken = req.headers.authorization
@@ -27,11 +27,7 @@ export default (roles: Role[]) => {
       return res.status(403).json({ message: 'Acesso não autorizado' })
     }
 
-    req.user = {
-      id,
-      email,
-      role
-    }
+    req.user = { id, email, role }
 
     next()
   }

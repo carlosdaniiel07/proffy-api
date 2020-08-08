@@ -2,11 +2,11 @@
 import { Router } from 'express'
 
 import tokenValidator from './../middlewares/tokenValidator'
-import cleanController from '../middlewares/cleanController'
+import cleanController from './../middlewares/cleanController'
 
-import StudentsController from '../controllers/students'
+import StudentsController from './../controllers/students'
 
 export default (route: Router) => {
-  route.get('/students', tokenValidator, cleanController(StudentsController.index))
+  route.get('/students', tokenValidator([]), cleanController(StudentsController.index))
   route.post('/students', cleanController(StudentsController.save))
 }

@@ -7,8 +7,8 @@ import cleanController from './../middlewares/cleanController'
 import SubjectsController from './../controllers/subjects'
 
 export default (route: Router) => {
-  route.get('/subjects', tokenValidator, cleanController(SubjectsController.index))
-  route.get('/subjects/:id', tokenValidator, cleanController(SubjectsController.show))
-  route.post('/subjects', tokenValidator, cleanController(SubjectsController.save))
-  route.delete('/subjects/:id', tokenValidator, cleanController(SubjectsController.remove))
+  route.get('/subjects', cleanController(SubjectsController.index))
+  route.get('/subjects/:id', cleanController(SubjectsController.show))
+  route.post('/subjects', tokenValidator([]), cleanController(SubjectsController.save))
+  route.delete('/subjects/:id', tokenValidator([]), cleanController(SubjectsController.remove))
 }

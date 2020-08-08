@@ -17,6 +17,13 @@ const show = async (req: Request, res: Response) => {
   return [200, teacher]
 }
 
+const me = async (req: any, res: Response) => {
+  const { id } = req.user
+  const teacher = await teacherService.getByUser(id)
+
+  return [200, teacher]
+}
+
 const save = async (req: Request, res: Response) => {
   const { name, email, password, bornDate, photoUrl, phone, bio, availability } = req.body
   const objectDTO: CreateTeacherDTO = { name, email, password, bornDate, photoUrl, phone, bio, availability }
@@ -31,5 +38,6 @@ const save = async (req: Request, res: Response) => {
 export default {
   index,
   show,
+  me,
   save
 }

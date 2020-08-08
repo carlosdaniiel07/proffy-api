@@ -25,6 +25,16 @@ const getById = async (id: string): Promise<Teacher> => {
   return teacher
 }
 
+const getByUser = async (userId: string): Promise<Teacher> => {
+  const teacher = await getRepository(Teacher).findOne({ where: { user: { id: userId } } })
+
+  if (!teacher) {
+    throw new ApiError(404, 'Professor não encontrado')
+  }
+
+  return teacher
+}
+
 const createTeacher = async (objectDTO: CreateTeacherDTO): Promise<Teacher> => {
   const { name, email, password, bornDate, photoUrl, phone, bio, availability: availabilityDTO } = objectDTO
 
@@ -55,5 +65,6 @@ const createTeacher = async (objectDTO: CreateTeacherDTO): Promise<Teacher> => {
 export default {
   getAll,
   getById,
+  getByUser,
   createTeacher
 }

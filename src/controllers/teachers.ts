@@ -5,6 +5,18 @@ import { CreateTeacherDTO } from '../models/dtos/CreateTeacherDTO'
 
 import teacherService from './../services/teacher'
 
+const index = async (req: Request, res: Response) => {
+  const teachers = await teacherService.getAll()
+  return [200, teachers]
+}
+
+const show = async (req: Request, res: Response) => {
+  const { id } = req.params
+  const teacher = await teacherService.getById(id)
+
+  return [200, teacher]
+}
+
 const save = async (req: Request, res: Response) => {
   const { name, email, password, bornDate, photoUrl, phone, bio, availability } = req.body
   const objectDTO: CreateTeacherDTO = { name, email, password, bornDate, photoUrl, phone, bio, availability }
@@ -17,5 +29,7 @@ const save = async (req: Request, res: Response) => {
 }
 
 export default {
+  index,
+  show,
   save
 }

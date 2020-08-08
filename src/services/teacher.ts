@@ -9,6 +9,21 @@ import { CreateTeacherDTO } from '../models/dtos/CreateTeacherDTO'
 
 import authService from './auth'
 import subjectService from './subject'
+import { ApiError } from '../models/ApiError'
+
+const getAll = async (): Promise<Teacher[]> => {
+  return await getRepository(Teacher).find()
+}
+
+const getById = async (id: string): Promise<Teacher> => {
+  const teacher = await getRepository(Teacher).findOne({ where: { id } })
+
+  if (!teacher) {
+    throw new ApiError(404, 'Professor não encontrado')
+  }
+
+  return teacher
+}
 
 const createTeacher = async (objectDTO: CreateTeacherDTO): Promise<Teacher> => {
   const { name, email, password, bornDate, photoUrl, phone, bio, availability: availabilityDTO } = objectDTO
@@ -38,5 +53,7 @@ const createTeacher = async (objectDTO: CreateTeacherDTO): Promise<Teacher> => {
 }
 
 export default {
+  getAll,
+  getById,
   createTeacher
 }

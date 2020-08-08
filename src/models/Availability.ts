@@ -3,6 +3,8 @@ import { Entity, PrimaryColumn, Column, Generated, ManyToOne, JoinColumn } from 
 import { Subject } from './Subject'
 import { Teacher } from './Teacher'
 
+import { ColumnNumericTransformer } from './../utils'
+
 @Entity()
 export class Availability {
   @PrimaryColumn({
@@ -43,7 +45,8 @@ export class Availability {
     nullable: false,
     type: 'decimal',
     precision: 10,
-    scale: 2
+    scale: 2,
+    transformer: new ColumnNumericTransformer()
   })
   price?: number
 

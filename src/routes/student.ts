@@ -6,7 +6,10 @@ import cleanController from './../middlewares/cleanController'
 
 import StudentsController from './../controllers/students'
 
+import { Role } from './../models/Auth'
+
 export default (route: Router) => {
   route.get('/students', tokenValidator([]), cleanController(StudentsController.index))
+  route.get('/students/me', tokenValidator([Role.STUDENT]), cleanController(StudentsController.me))
   route.post('/students', cleanController(StudentsController.save))
 }

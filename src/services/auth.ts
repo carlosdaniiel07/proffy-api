@@ -27,7 +27,7 @@ const auth = async (email: string, password: string): Promise<string> => {
   const { id, role } = user
   const token = jwt.sign({ id, email, role }, JWT_CONFIG.JWT_SECRET, { expiresIn: JWT_CONFIG.JWT_DURATION })
 
-  return Promise.resolve(token)
+  return token
 }
 
 const createUser = async (email: string, password: string, role: Role): Promise<Auth> => {

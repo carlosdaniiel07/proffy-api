@@ -4,8 +4,7 @@ import { Subject } from './../models/Subject'
 import { ApiError } from '../models/ApiError'
 
 const getAll = async (): Promise<Subject[]> => {
-  const subjectRepository = getRepository(Subject)
-  return await subjectRepository.find({ active: true })
+  return await getRepository(Subject).find({ active: true })
 }
 
 const getById = async (id: string): Promise<Subject> => {
@@ -33,10 +32,7 @@ const getByIds = async (ids: string[]): Promise<Subject[]> => {
 }
 
 const countByName = async (name: string): Promise<number> => {
-  const subjectRepository = getRepository(Subject)
-  const count = await subjectRepository.count({ where: { name, active: true } })
-
-  return Promise.resolve(count)
+  return await getRepository(Subject).count({ where: { name, active: true } })
 }
 
 const createSubject = async (name: string): Promise<Subject> => {
@@ -56,7 +52,7 @@ const deleteById = async (id: string): Promise<Subject> => {
     await getRepository(Subject).update(subject, { active: false })
   }
 
-  return Promise.resolve(subject)
+  return subject
 }
 
 export default {
